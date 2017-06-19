@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: alexandr
-  Date: 19.06.17
-  Time: 16:34
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,5 +5,6 @@
 </head>
 <body>
 <h2>Hello from go.jsp</h2>
+<h3><a href="/go?name=Vova">Click here...</a></h3>
 </body>
 </html>
