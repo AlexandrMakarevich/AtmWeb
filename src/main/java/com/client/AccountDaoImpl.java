@@ -27,8 +27,8 @@ public class AccountDaoImpl implements AccountDao {
         List<Account> listOfAccounts = namedParameterJdbcTemplate.query(query, namedParameters, new RowMapper<Account>() {
             public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Account account = new Account();
-                account.setId(rs.getInt("id"));
-                account.setAccountName(rs.getString("account_name"));
+                account.setId(rs.getInt("i"));
+                account.setAccountName(rs.getString("a"));
                 return account;
             }
         });

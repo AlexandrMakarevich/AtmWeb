@@ -7,6 +7,7 @@
          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
     <context:property-placeholder location="classpath:atmWeb.properties"/>
+    <context:component-scan base-package="com"/>
 
     <jee:jndi-lookup id="dataSource"
                      jndi-name="jdbc/MySQLDS"
