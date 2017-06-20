@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+
+    <Resource name="jdbc/MySQLDS" auth="Container" type="javax.sql.DataSource"
+              username="atm_user"
+              password="12345678"
+              driverClassName="com.mysql.jdbc.Driver"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+              url="jdbc:mysql://localhost:3306/atm?characterEncoding=utf8"
+              maxActive="15"
+              maxIdle="7"
+              testOnBorrow="true"
+              removeAbandoned="true"
+              testWhileIdle="true"
+              defaultTransactionIsolation="READ_COMMITTED"
+              validationQuery="Select 1" />
+</Context>
