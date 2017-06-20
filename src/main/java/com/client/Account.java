@@ -1,4 +1,4 @@
-package client;
+package com.client;
 
 public class Account {
 

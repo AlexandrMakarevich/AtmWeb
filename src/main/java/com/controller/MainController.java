@@ -1,6 +1,6 @@
-package controller;
+package com.controller;
 
-import client.Account;
+import com.client.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
