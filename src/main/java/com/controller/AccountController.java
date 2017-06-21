@@ -2,13 +2,18 @@ package com.controller;
 
 import com.client.Account;
 import com.client.AccountDao;
+import com.command.Command;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -18,9 +23,9 @@ public class AccountController {
 
     @Resource(name = "accountValidator")
     private AccountValidator accountValidator;
-    private AccountDao accountDao;
-    private final static String ACCOUNT_PAGE_NAME = "accountJsp";
-    private final static String ACCOUNT = "account";
+    private static final String ACCOUNT_PAGE_NAME = "accountJsp";
+    private static final String ACCOUNT = "account";
+    private static final Logger LOGGER = Logger.getLogger(AccountController.class);
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -35,16 +40,16 @@ public class AccountController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String checkAccount(@Valid Account account, BindingResult result, ModelMap model) {
+    public ModelAndView checkAccount(
+            @Valid
+            @ModelAttribute("account")
+                    Account account,
+            BindingResult result,
+            ModelMap model) {
         if (result.hasErrors()) {
-            return ACCOUNT_PAGE_NAME;
+            LOGGER.info("Account doesn't exist!");
+            return new ModelAndView(ACCOUNT_PAGE_NAME, model);
         }
-        return "command";
+        return new ModelAndView("redirect:/command", model);
     }
-
-    @Resource(name = "accountDaoImpl")
-    public void setAccountDao(AccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
-
 }

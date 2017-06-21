@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.MapBindingResult;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.Resource;
 import java.util.HashMap;
 
@@ -30,16 +32,17 @@ public class TestAccountController extends BaseCommandTest {
     public void checkWrongAccount() {
         String expectedPageName = "accountJsp";
         cleanTable("account");
-        String actualPageName = accountController.checkAccount(account, result, new ModelMap());
-        Assert.assertEquals("ActualPageName must be expectedPageName ", expectedPageName, actualPageName);
+        result.rejectValue("accountName", "account_not_found");
+        ModelAndView actualPageName = accountController.checkAccount(account, result, new ModelMap());
+        Assert.assertEquals("ActualPageName must be expectedPageName ", expectedPageName, actualPageName.getViewName());
     }
 
     @Test
     public void checkExistAccount() {
-        String expectedPageName = "command";
+        String expectedPageName = "redirect:/command";
         cleanTable("account");
         insert("account", "account_name", accountName);
-        String actualPageName = accountController.checkAccount(account, result, new ModelMap());
-        Assert.assertEquals("ActualPageName must be expectedPageName ", expectedPageName, actualPageName);
+        ModelAndView actualPageName = accountController.checkAccount(account, result, new ModelMap());
+        Assert.assertEquals("ActualPageName must be expectedPageName ", expectedPageName, actualPageName.getViewName());
     }
 }
