@@ -2,12 +2,12 @@ package com.command;
 
 import com.google.common.base.Objects;
 
-public class PrintBalanceService {
+public class PrintBalance {
 
     private String currency;
     private int balance;
 
-    public PrintBalanceService(String currency, int balance) {
+    public PrintBalance(String currency, int balance) {
         this.currency = currency;
         this.balance = balance;
     }
@@ -22,7 +22,7 @@ public class PrintBalanceService {
 
     @Override
     public String toString() {
-        return "PrintBalanceService{" +
+        return "PrintBalance{" +
                 "currency='" + currency + '\'' +
                 ", balance=" + balance +
                 '}';
@@ -32,7 +32,7 @@ public class PrintBalanceService {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PrintBalanceService that = (PrintBalanceService) o;
+        PrintBalance that = (PrintBalance) o;
         return balance == that.balance &&
                 Objects.equal(currency, that.currency);
     }

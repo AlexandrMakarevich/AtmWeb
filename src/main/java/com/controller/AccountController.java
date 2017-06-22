@@ -1,8 +1,7 @@
 package com.controller;
 
 import com.client.Account;
-import com.client.AccountDao;
-import com.command.Command;
+import com.validator.AccountValidator;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -25,6 +24,8 @@ public class AccountController {
     private AccountValidator accountValidator;
     private static final String ACCOUNT_PAGE_NAME = "accountJsp";
     private static final String ACCOUNT = "account";
+    public static final String ACCOUNT_ID_ATTRIBUTE_NAME = "accountId";
+    public static final String ACCOUNT_NAME_MODEL_ATTRIBUTE = "accountName";
     private static final Logger LOGGER = Logger.getLogger(AccountController.class);
 
     @InitBinder
@@ -42,14 +43,14 @@ public class AccountController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView checkAccount(
             @Valid
-            @ModelAttribute("account")
-                    Account account,
-            BindingResult result,
-            ModelMap model) {
-        if (result.hasErrors()) {
-            LOGGER.info("Account doesn't exist!");
-            return new ModelAndView(ACCOUNT_PAGE_NAME, model);
+            @ModelAttribute("account") Account account,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView(ACCOUNT_PAGE_NAME);
         }
-        return new ModelAndView("redirect:/command", model);
+        redirectAttributes.addFlashAttribute(ACCOUNT_NAME_MODEL_ATTRIBUTE, account.getAccountName());
+        redirectAttributes.addFlashAttribute(ACCOUNT_ID_ATTRIBUTE_NAME, account.getId());
+        return new ModelAndView("redirect:/command");
     }
 }

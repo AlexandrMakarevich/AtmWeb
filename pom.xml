@@ -63,6 +63,12 @@
         </dependency>
 
         <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.tacitknowledge</groupId>
             <artifactId>autopatch</artifactId>
             <version>1.4.2</version>

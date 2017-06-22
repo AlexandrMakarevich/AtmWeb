@@ -2,7 +2,7 @@ package com.command;
 
 import java.sql.SQLException;
 
-public interface DbCommand {
+public interface DbCommand<T> {
 
-    void executeDb(int accountName) throws SQLException;
+    T executeDb(int accountName) throws SQLException;
 }

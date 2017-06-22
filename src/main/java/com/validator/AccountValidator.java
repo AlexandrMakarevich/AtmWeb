@@ -1,10 +1,9 @@
-package com.controller;
+package com.validator;
 
 import com.client.Account;
 import com.client.AccountDao;
 import com.google.common.base.Optional;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import javax.annotation.Resource;
@@ -19,10 +18,12 @@ public class AccountValidator implements Validator {
         this.accountDao = accountDao;
     }
 
+    @Override
     public boolean supports(Class<?> aClass) {
         return Account.class.equals(aClass);
     }
 
+    @Override
     public void validate(Object o, Errors errors) {
         Account account = (Account) o;
         Optional<Account> accountExist = accountDao.findAccountByName(account.getAccountName());

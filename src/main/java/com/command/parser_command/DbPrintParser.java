@@ -19,11 +19,13 @@ public class DbPrintParser implements DbInputParser {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
+    @Override
     public boolean commandMatch(String inputString) {
         Matcher dbPrint = dbPrintPattern.matcher(inputString);
         return dbPrint.matches();
     }
 
+    @Override
     public DbCommand parseInput(String inputString) {
         Matcher dbPrint = dbPrintPattern.matcher(inputString);
         if (dbPrint.find()) {

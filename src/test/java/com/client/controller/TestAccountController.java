@@ -6,10 +6,9 @@ import com.controller.AccountController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import javax.annotation.Resource;
 import java.util.HashMap;
 
@@ -33,7 +32,7 @@ public class TestAccountController extends BaseCommandTest {
         String expectedPageName = "accountJsp";
         cleanTable("account");
         result.rejectValue("accountName", "account_not_found");
-        ModelAndView actualPageName = accountController.checkAccount(account, result, new ModelMap());
+        ModelAndView actualPageName = accountController.checkAccount(account, result, new RedirectAttributesModelMap());
         Assert.assertEquals("ActualPageName must be expectedPageName ", expectedPageName, actualPageName.getViewName());
     }
 
@@ -42,7 +41,7 @@ public class TestAccountController extends BaseCommandTest {
         String expectedPageName = "redirect:/command";
         cleanTable("account");
         insert("account", "account_name", accountName);
-        ModelAndView actualPageName = accountController.checkAccount(account, result, new ModelMap());
+        ModelAndView actualPageName = accountController.checkAccount(account, result, new RedirectAttributesModelMap());
         Assert.assertEquals("ActualPageName must be expectedPageName ", expectedPageName, actualPageName.getViewName());
     }
 }
