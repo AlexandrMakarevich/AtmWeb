@@ -2,6 +2,7 @@ package com.controller;
 
 import com.client.AccountDao;
 import com.command.Command;
+import com.command.CommandName;
 import com.command.DbCommand;
 import com.command.PrintBalance;
 import com.command.parser_command.DbDelegatedInputParser;
@@ -46,6 +47,7 @@ public class CommandController {
         command.setAccountId((Integer) model.get(ACCOUNT_ID_ATTRIBUTE_NAME));
         command.setAccountName((String) model.get(ACCOUNT_NAME_MODEL_ATTRIBUTE));
         model.addAttribute(COMMAND_ATTRIBUTE_NAME, command);
+        model.addAttribute("commandNameEnum","");
         return COMMAND_PAGE_NAME;
     }
 
@@ -54,10 +56,17 @@ public class CommandController {
         if (result.hasErrors()) {
             return COMMAND_PAGE_NAME;
         }
-        DbCommand<List<PrintBalance>> dbCommand = delegatedInputParser.defaultParseInput(command.getCommandName());
+        DbCommand dbCommand = delegatedInputParser.defaultParseInput(command.getCommandName());
         List<PrintBalance> printBalances = dbCommand.executeDb(command.getAccountId());
         model.addAttribute("listPrintBalance", printBalances);
-        return COMMAND_PAGE_NAME;
+        model.addAttribute("commandNameEnum",dbCommand.getCommandOperation());
+        if (dbCommand.getCommandOperation() == CommandName.PRINT) {
+            return "balance";
+        }
+        if (dbCommand.getCommandOperation() == CommandName.ADD) {
+            return "addOperation";
+        }
+        return "balance";
     }
 
     @Resource(name = "dbDelegatedInputParser")

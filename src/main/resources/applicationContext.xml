@@ -27,5 +27,6 @@
 
     <util:list id="listOfParsers" value-type="com.command.parser_command.DbInputParser">
         <ref bean="dbPrintParser"/>
+        <ref bean="dbAddParser"/>
     </util:list>
 </beans>

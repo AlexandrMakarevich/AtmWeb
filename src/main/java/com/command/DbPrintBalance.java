@@ -12,7 +12,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository("dbPrintBalance")
-public class DbPrintBalance implements DbCommand<List<PrintBalance>> {
+public class DbPrintBalance implements DbCommand {
+
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private static final Logger LOGGER = Logger.getLogger(DbPrintBalance.class);
@@ -43,5 +44,10 @@ public class DbPrintBalance implements DbCommand<List<PrintBalance>> {
                 return new PrintBalance(rs.getString("cn"), rs.getInt("b"));
             }
         });
+    }
+
+    @Override
+    public CommandName getCommandOperation() {
+        return CommandName.PRINT;
     }
 }

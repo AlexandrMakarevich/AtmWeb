@@ -26,7 +26,7 @@ public class DbPrintParser implements DbInputParser {
     }
 
     @Override
-    public DbCommand parseInput(String inputString) {
+    public DbPrintBalance parseInput(String inputString) {
         Matcher dbPrint = dbPrintPattern.matcher(inputString);
         if (dbPrint.find()) {
             return new DbPrintBalance(namedParameterJdbcTemplate);

@@ -1,8 +1,11 @@
 package com.command;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public interface DbCommand<T> {
+public interface DbCommand {
 
-    T executeDb(int accountName) throws SQLException;
+    List<PrintBalance> executeDb(int accountName) throws SQLException;
+
+    CommandName getCommandOperation();
 }

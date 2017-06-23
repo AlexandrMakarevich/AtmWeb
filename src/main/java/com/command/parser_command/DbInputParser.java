@@ -6,5 +6,5 @@ public interface DbInputParser {
 
     boolean commandMatch(String inputString);
 
-    DbCommand parseInput(String inputString);
+    <T extends DbCommand> T parseInput(String inputString);
 }
