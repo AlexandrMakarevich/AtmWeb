@@ -1,10 +1,7 @@
 package com.controller;
 
-import com.client.AccountDao;
-import com.command.Command;
-import com.command.CommandName;
-import com.command.DbCommand;
-import com.command.PrintBalance;
+import com.atm_exeption.AtmException;
+import com.command.*;
 import com.command.parser_command.DbDelegatedInputParser;
 import com.validator.CommandValidator;
 import org.springframework.stereotype.Controller;
@@ -17,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import static com.controller.AccountController.ACCOUNT_ID_ATTRIBUTE_NAME;
 import static com.controller.AccountController.ACCOUNT_NAME_MODEL_ATTRIBUTE;
 
@@ -28,11 +26,7 @@ public class CommandController {
 
     @Resource(name = "commandValidator")
     private CommandValidator commandValidator;
-
     private DbDelegatedInputParser delegatedInputParser;
-
-    @Resource(name = "accountDaoImpl")
-    private AccountDao accountDao;
     private static final String COMMAND_PAGE_NAME = "command";
     private static final String COMMAND_ATTRIBUTE_NAME = "command";
 
@@ -47,26 +41,28 @@ public class CommandController {
         command.setAccountId((Integer) model.get(ACCOUNT_ID_ATTRIBUTE_NAME));
         command.setAccountName((String) model.get(ACCOUNT_NAME_MODEL_ATTRIBUTE));
         model.addAttribute(COMMAND_ATTRIBUTE_NAME, command);
-        model.addAttribute("commandNameEnum","");
+        model.addAttribute("commandNameEnum", "");
         return COMMAND_PAGE_NAME;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String checkCommand(@Valid Command command, BindingResult result, ModelMap model) throws SQLException {
+    public String checkCommand(@Valid Command command, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return COMMAND_PAGE_NAME;
         }
+        model.addAttribute("errorCode", "");
         DbCommand dbCommand = delegatedInputParser.defaultParseInput(command.getCommandName());
-        List<PrintBalance> printBalances = dbCommand.executeDb(command.getAccountId());
-        model.addAttribute("listPrintBalance", printBalances);
-        model.addAttribute("commandNameEnum",dbCommand.getCommandOperation());
-        if (dbCommand.getCommandOperation() == CommandName.PRINT) {
-            return "balance";
+        try {
+            List<PrintBalance> resultList = dbCommand.executeDb(command.getAccountId());
+            model.addAttribute("operationResult", resultList);
+        } catch (AtmException errors) {
+            model.addAttribute("errorCode", errors.getErrorCodes());
         }
-        if (dbCommand.getCommandOperation() == CommandName.ADD) {
-            return "addOperation";
-        }
-        return "balance";
+        Map<CommandName, String> commandPages = new HashMap<>();
+        commandPages.put(CommandName.PRINT, "balance");
+        commandPages.put(CommandName.ADD, "addOperation");
+        commandPages.put(CommandName.WITHDRAW, "withdrawOperation");
+        return commandPages.get(dbCommand.getCommandOperation());
     }
 
     @Resource(name = "dbDelegatedInputParser")

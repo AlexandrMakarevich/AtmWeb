@@ -22,17 +22,5 @@
     <input type="submit" value="Enter"/>
     <form:errors path="commandName" cssClass="error"/>
 </form:form>
-<%--<spring:eval expression="commandNameEnum == T(com.command.CommandName).PRINT" var="isValid"/>--%>
-<%--<c:if test="${isValid}">--%>
-    <%--<c:forEach var="printBalance" items="${listPrintBalance}">--%>
-        <%--${printBalance.currency}=${printBalance.balance}<br/>--%>
-    <%--</c:forEach>--%>
-<%--</c:if>--%>
-<%--<spring:eval expression="commandNameEnum == T(com.command.CommandName).ADD" var="isValid"/>--%>
-<%--<c:if test="${isValid}">--%>
-    <%--<c:forEach var="printBalance" items="${listPrintBalance}">--%>
-        <%--${printBalance.currency}=${printBalance.balance}<br/>--%>
-    <%--</c:forEach>--%>
-<%--</c:if>--%>
 </body>
 </html>

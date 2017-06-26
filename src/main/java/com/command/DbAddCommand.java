@@ -21,7 +21,7 @@ public class DbAddCommand implements DbCommand {
     }
 
     @Override
-    public List<PrintBalance> executeDb(int accountId) throws SQLException {
+    public List<PrintBalance> executeDb(int accountId) {
         String query = " insert into debit(account_id, currency_id, balance) "+
         "select :p_account_id account_id, c.id, IFNULL(d.balance,:p_balance) "+
         "from currency c "+

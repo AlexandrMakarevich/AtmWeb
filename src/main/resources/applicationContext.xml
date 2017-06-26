@@ -28,5 +28,10 @@
     <util:list id="listOfParsers" value-type="com.command.parser_command.DbInputParser">
         <ref bean="dbPrintParser"/>
         <ref bean="dbAddParser"/>
+        <ref bean="dbWithdrawParser"/>
     </util:list>
+
+    <util:map id="mappingResultPageAndName" key-type="com.command.CommandName" value-type="java.lang.String">
+        <entry key="PRINT" value="balance"/>
+    </util:map>
 </beans>

@@ -32,7 +32,7 @@ public class DbPrintBalance implements DbCommand {
     }
 
     @Override
-    public List<PrintBalance> executeDb(int accountId) throws SQLException {
+    public List<PrintBalance> executeDb(int accountId) {
         String query = "select currency_name cn,balance b" +
                 " from debit d inner join account a on a.id = d.account_id" +
                 " inner join currency c on c.id = d.currency_id" +
