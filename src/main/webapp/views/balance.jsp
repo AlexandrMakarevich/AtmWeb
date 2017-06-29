@@ -9,8 +9,8 @@
 <body>
 <spring:eval expression="commandNameEnum == T(com.command.CommandName).PRINT" var="isValid"/>
 <c:if test="${isValid}">
-    <c:forEach var="printBalance" items="${operationResult}">
-        On your balance is ${printBalance.currency} in currency ${printBalance.balance}!<br/>
+    <c:forEach var="printBalanceService" items="${operationResult}">
+        On your balance is ${printBalanceService.balance} in currency ${printBalanceService.currency}!<br/>
     </c:forEach>
 </c:if>
 <h3><a href="/account"><input type="submit" value="Back to previous menu"/></a></h3>

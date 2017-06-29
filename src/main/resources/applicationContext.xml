@@ -25,13 +25,15 @@
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
-    <util:list id="listOfParsers" value-type="com.command.parser_command.DbInputParser">
-        <ref bean="dbPrintParser"/>
-        <ref bean="dbAddParser"/>
-        <ref bean="dbWithdrawParser"/>
+    <util:list id="listOfParsers" value-type="com.command.parser_command.InputParser">
+        <ref bean="printParser"/>
+        <ref bean="addParser"/>
+        <ref bean="withdrawParser"/>
     </util:list>
 
     <util:map id="mappingResultPageAndName" key-type="com.command.CommandName" value-type="java.lang.String">
         <entry key="PRINT" value="balance"/>
+        <entry key="ADD" value="addOperation"/>
+        <entry key="WITHDRAW" value="withdrawOperation"/>
     </util:map>
 </beans>

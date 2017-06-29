@@ -1,17 +1,16 @@
 package com.command.parser_command;
 
-import com.command.DbCommand;
-import com.command.DbPrintBalance;
+import com.command.WithdrawCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service("dbPrintParser")
-public class DbPrintParser implements DbInputParser {
+@Service("withdrawParser")
+public class WithdrawParser implements InputParser {
 
-    private Pattern dbPrintPattern = Pattern.compile("^balance$");
+    private Pattern withdrawPattern = Pattern.compile("^- ([a-z]{3}) ([0-9]{1,10})$");
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
@@ -21,15 +20,17 @@ public class DbPrintParser implements DbInputParser {
 
     @Override
     public boolean commandMatch(String inputString) {
-        Matcher dbPrint = dbPrintPattern.matcher(inputString);
-        return dbPrint.matches();
+        Matcher withdraw = withdrawPattern.matcher(inputString);
+        return withdraw.matches();
     }
 
     @Override
-    public DbPrintBalance parseInput(String inputString) {
-        Matcher dbPrint = dbPrintPattern.matcher(inputString);
-        if (dbPrint.find()) {
-            return new DbPrintBalance(namedParameterJdbcTemplate);
+    public WithdrawCommand parseInput(String inputString) {
+        Matcher withdraw = withdrawPattern.matcher(inputString);
+        if (withdraw.matches()) {
+            String currency = withdraw.group(1);
+            Integer amount = Integer.valueOf(withdraw.group(2));
+            return new WithdrawCommand(namedParameterJdbcTemplate, currency, amount);
         }
         throw new IllegalArgumentException("Wrong command : " + inputString);
     }

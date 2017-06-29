@@ -7,10 +7,18 @@
     <title>Operation add balance</title>
 </head>
 <body>
+<spring:eval expression="errorCode == T(com.atm_exeption.ErrorCodes).NO_CHANGES" var="isError"/>
+<c:if test="${isError}">
+    No column has been changed!Currency doesn't exist.
+</c:if>
+<spring:eval expression="errorCode == T(com.atm_exeption.ErrorCodes).NO_CURRENCY" var="isError"/>
+<c:if test="${isError}">
+    "You don't have money on currency !"
+</c:if>
 <spring:eval expression="commandNameEnum == T(com.command.CommandName).ADD" var="isValid"/>
 <c:if test="${isValid}">
-    <c:forEach var="printBalance" items="${listPrintBalance}">
-        Add on your balance ${printBalance.balance} in currency ${printBalance.currency}!<br/>
+    <c:forEach var="printAdd" items="${operationResult}">
+        Add on your balance ${printAdd.balance} in currency ${printAdd.currency}!<br/>
     </c:forEach>
 </c:if>
 <h3><a href="/account"><input type="submit" value="Back to previous menu"/></a></h3>
