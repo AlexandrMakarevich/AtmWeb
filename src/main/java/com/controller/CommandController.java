@@ -5,7 +5,6 @@ import com.atm_exeption.CustomAtmException;
 import com.command.*;
 import com.command.parser_command.DelegatedInputParser;
 import com.validator.CommandValidator;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 import static com.controller.AccountController.ACCOUNT_ID_ATTRIBUTE_NAME;
@@ -30,7 +28,6 @@ public class CommandController {
     private static final String COMMAND_PAGE_NAME = "command";
     private static final String COMMAND_ATTRIBUTE_NAME = "command";
     private Map<CommandName, String> commandPages;
-    private static final Logger LOGGER = Logger.getLogger(CommandController.class);
 
     @InitBinder(COMMAND_ATTRIBUTE_NAME)
     protected void initBinder(WebDataBinder binder) {

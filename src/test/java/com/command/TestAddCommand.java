@@ -1,8 +1,7 @@
-package com.client;
+package com.command;
 
+import com.BaseCommandTest;
 import com.atm_exeption.CustomAtmException;
-import com.command.AddCommand;
-import com.command.PrintBalanceService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,6 +10,7 @@ import org.junit.rules.ExpectedException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.List;
 

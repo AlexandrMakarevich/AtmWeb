@@ -1,8 +1,7 @@
-package com.client.controller;
+package com.controller;
 
 import com.client.Account;
-import com.client.BaseCommandTest;
-import com.controller.AccountController;
+import com.BaseCommandTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,6 @@
 package com.client;
 
+import com.BaseCommandTest;
 import com.google.common.base.Optional;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,8 +1,9 @@
-package com.client;
+package com.command;
 
+import com.AtmExceptionMatcher;
+import com.BaseCommandTest;
 import com.atm_exeption.AtmException;
 import com.atm_exeption.ErrorCodes;
-import com.command.WithdrawCommand;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 
 public class TestWithdrawCommand extends BaseCommandTest {

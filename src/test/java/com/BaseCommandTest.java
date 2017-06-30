@@ -1,4 +1,4 @@
-package com.client;
+package com;
 
 import org.junit.runner.RunWith;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

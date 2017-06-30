@@ -1,4 +1,4 @@
-package com.client;
+package com;
 
 import com.atm_exeption.AtmException;
 import org.hamcrest.Description;

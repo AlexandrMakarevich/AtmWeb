@@ -44,4 +44,16 @@ public class AccountDaoImpl implements AccountDao {
         }
         return Optional.of(listOfAccounts.get(0));
     }
+
+    @Override
+    public int addAccount(String accountName) {
+        String query = "insert into account (account_name) value(:p_account_name)";
+        SqlParameterSource namedParameters = new MapSqlParameterSource("p_account_name", accountName);
+        int rows = namedParameterJdbcTemplate.update(query, namedParameters);
+        if (rows == 0) {
+            System.out.println("No column was changed!");
+            throw new IllegalStateException("No column was changed!");
+        }
+        return rows;
+    }
 }

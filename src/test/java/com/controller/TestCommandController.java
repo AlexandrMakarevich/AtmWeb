@@ -1,10 +1,9 @@
-package com.client.controller;
+package com.controller;
 
 import com.atm_exeption.ErrorCodes;
-import com.client.BaseCommandTest;
+import com.BaseCommandTest;
 import com.command.Command;
 import com.command.PrintBalanceService;
-import com.controller.CommandController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
