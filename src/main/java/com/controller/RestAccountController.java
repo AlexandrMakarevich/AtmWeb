@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 @RestController
 @Transactional
-public class AccountControllerTest {
+public class RestAccountController {
 
     @Resource(name = "accountDaoImpl")
     private AccountDao accountDao;
