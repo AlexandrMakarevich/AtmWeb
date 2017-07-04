@@ -1,6 +1,6 @@
 package com.validator;
 
-import com.command.Command;
+import com.command.CommandBean;
 import com.command.parser_command.DelegatedInputParser;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -19,14 +19,14 @@ public class CommandValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Command.class.equals(aClass);
+        return CommandBean.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        Command command = (Command) o;
+        CommandBean commandBean = (CommandBean) o;
         try {
-            delegatedInputParser.defaultParseInput(command.getCommandName());
+            delegatedInputParser.defaultParseInput(commandBean.getCommandName());
         }
         catch(IllegalArgumentException e) {
             errors.rejectValue("commandName", "command_not_found");

@@ -1,50 +1,44 @@
 package com.command;
 
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Repository;
-import javax.annotation.Resource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import com.google.common.base.Objects;
 
-@Repository("dbPrintBalance")
-public class PrintBalance implements CommandInt {
+public class PrintBalance {
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private String currency;
+    private int balance;
 
-    @Resource
-    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public PrintBalance(String currency, int balance) {
+        this.currency = currency;
+        this.balance = balance;
     }
 
-    public PrintBalance(){
-
+    public String getCurrency() {
+        return currency;
     }
 
-    public PrintBalance(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public int getBalance() {
+        return balance;
     }
 
     @Override
-    public List<PrintBalanceService> executeDb(int accountId) {
-        String query = "select currency_name cn,balance b" +
-                " from debit d inner join account a on a.id = d.account_id" +
-                " inner join currency c on c.id = d.currency_id" +
-                " where d.account_id = :p_account_id";
-        SqlParameterSource namedParameters = new MapSqlParameterSource("p_account_id", accountId);
-        return namedParameterJdbcTemplate.query(query, namedParameters, new RowMapper<PrintBalanceService>() {
-            @Override
-            public PrintBalanceService mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new PrintBalanceService(rs.getString("cn"), rs.getInt("b"));
-            }
-        });
+    public String toString() {
+        return "PrintBalance{" +
+                "currency='" + currency + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 
     @Override
-    public CommandName getCommandOperation() {
-        return CommandName.PRINT;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PrintBalance that = (PrintBalance) o;
+        return balance == that.balance &&
+                Objects.equal(currency, that.currency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(currency, balance);
     }
 }

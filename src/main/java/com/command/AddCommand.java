@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class AddCommand implements CommandInt {
     }
 
     @Override
-    public List<PrintBalanceService> executeDb(int accountId) {
+    public List<PrintBalance> executeDb(int accountId) {
         Optional<Integer> currencyExist = checkCurrency(currency);
         if (!currencyExist.isPresent()) {
             LOGGER.info("You don't have money on currency " + currency);
@@ -51,9 +50,9 @@ public class AddCommand implements CommandInt {
         if (rowCount == 0) {
             throw new AtmException(ErrorCodes.NO_CHANGES);
         }
-        PrintBalanceService printBalanceService = new PrintBalanceService(currency, amount);
-        List<PrintBalanceService> listAddBalance = new ArrayList<>();
-        listAddBalance.add(printBalanceService);
+        PrintBalance printBalance = new PrintBalance(currency, amount);
+        List<PrintBalance> listAddBalance = new ArrayList<>();
+        listAddBalance.add(printBalance);
         String formattedString = String.format("Added %d in currency %s.", amount, currency);
         LOGGER.info(formattedString);
         return listAddBalance;

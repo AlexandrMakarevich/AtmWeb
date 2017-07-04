@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.client.Account;
 import com.BaseCommandTest;
+import com.client.Account;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.command;
 
-public class Command {
+public class CommandBean {
 
     private String commandName;
     private int accountId;

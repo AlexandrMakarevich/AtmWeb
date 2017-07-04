@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CommandInt {
 
-    List<PrintBalanceService> executeDb(int accountName);
+    List<PrintBalance> executeDb(int accountName);
 
     CommandName getCommandOperation();
 }

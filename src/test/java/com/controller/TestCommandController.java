@@ -2,8 +2,8 @@ package com.controller;
 
 import com.atm_exeption.ErrorCodes;
 import com.BaseCommandTest;
-import com.command.Command;
-import com.command.PrintBalanceService;
+import com.command.CommandBean;
+import com.command.PrintBalance;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TestCommandController extends BaseCommandTest {
     private String currencyName = "rub";
     private int balance = 200;
     private String accountName = "Vova";
-    private Command command;
+    private CommandBean commandBean;
     private MapBindingResult result;
 
     @Before
@@ -30,21 +30,21 @@ public class TestCommandController extends BaseCommandTest {
         int accountId = insert("account", "account_name", accountName);
         int currencyId = insert("currency", "currency_name", currencyName);
         insertBalance(accountId, currencyId, balance);
-        command = new Command();
-        command.setAccountId(accountId);
-        command.setAccountName(accountName);
+        commandBean = new CommandBean();
+        commandBean.setAccountId(accountId);
+        commandBean.setAccountName(accountName);
     }
 
     @Test
     public void checkProcessCommand() {
         ModelMap modelMap = new ModelMap();
         String commandName = "balance";
-        command.setCommandName(commandName);
+        commandBean.setCommandName(commandName);
         String expectedResult = "balance";
-        PrintBalanceService expectedObject = new PrintBalanceService(currencyName, balance);
-        String actualResult = commandController.processCommand(command, result, modelMap);
-        List<PrintBalanceService> resultList = (List<PrintBalanceService>) modelMap.get("operationResult");
-        PrintBalanceService actualObject = resultList.get(0);
+        PrintBalance expectedObject = new PrintBalance(currencyName, balance);
+        String actualResult = commandController.processCommand(commandBean, result, modelMap);
+        List<PrintBalance> resultList = (List<PrintBalance>) modelMap.get("operationResult");
+        PrintBalance actualObject = resultList.get(0);
         Assert.assertEquals("Actual object must be expected", expectedObject, actualObject);
         Assert.assertEquals("Actual pageName must be expectedPageName", expectedResult, actualResult);
     }
@@ -75,8 +75,8 @@ public class TestCommandController extends BaseCommandTest {
 
     public String getErrorMessage(String commandName) {
         ModelMap modelMap = new ModelMap();
-        command.setCommandName(commandName);
-        commandController.processCommand(command, result, modelMap);
+        commandBean.setCommandName(commandName);
+        commandController.processCommand(commandBean, result, modelMap);
         ErrorCodes actualResult = (ErrorCodes) modelMap.get("errorCode");
         return actualResult.getErrorMessage();
     }

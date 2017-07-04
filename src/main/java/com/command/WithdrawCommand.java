@@ -26,16 +26,16 @@ public class WithdrawCommand implements CommandInt {
     }
 
     @Override
-    public List<PrintBalanceService> executeDb(int accountName) {
+    public List<PrintBalance> executeDb(int accountName) {
         int balance = getBalance(accountName, currency);
         if ((balance - amount) < 0) {
             LOGGER.info("Not enough money on the account!");
             throw new AtmException(ErrorCodes.NOT_ENOUGH_MONEY);
         }
         withdrawProcess(currency, accountName);
-        PrintBalanceService printBalanceService = new PrintBalanceService(currency, amount);
-        List<PrintBalanceService> listWithdrawBalance = new ArrayList<>();
-        listWithdrawBalance.add(printBalanceService);
+        PrintBalance printBalance = new PrintBalance(currency, amount);
+        List<PrintBalance> listWithdrawBalance = new ArrayList<>();
+        listWithdrawBalance.add(printBalance);
         String formattedString = String.format("Removed from your account %d %s.", amount, currency);
         LOGGER.info(formattedString);
         return listWithdrawBalance;

@@ -1,6 +1,6 @@
 package com.command.parser_command;
 
-import com.command.PrintBalance;
+import com.command.PrintBalanceCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -25,10 +25,10 @@ public class PrintParser implements InputParser {
     }
 
     @Override
-    public PrintBalance parseInput(String inputString) {
+    public PrintBalanceCommand parseInput(String inputString) {
         Matcher print = printPattern.matcher(inputString);
         if (print.find()) {
-            return new PrintBalance(namedParameterJdbcTemplate);
+            return new PrintBalanceCommand(namedParameterJdbcTemplate);
         }
         throw new IllegalArgumentException("Wrong command : " + inputString);
     }

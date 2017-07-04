@@ -38,7 +38,7 @@ public class TestAddCommand extends BaseCommandTest {
     public void testCheckAddMoneyOnBalance() {
         int accountId = insert("account", "account_name", accountName);
         insert("currency", "currency_name", currencyName);
-        List<PrintBalanceService> addList = addCommand.executeDb(accountId);
+        List<PrintBalance> addList = addCommand.executeDb(accountId);
         int actualBalance = addList.get(0).getBalance();
         Assert.assertEquals("ActualBalance must be the same as balance", balance, actualBalance);
     }

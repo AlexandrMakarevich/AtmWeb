@@ -36,23 +36,23 @@ public class CommandController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showCommand(ModelMap model) {
-        Command command = new Command();
-        command.setAccountId((Integer) model.get(ACCOUNT_ID_ATTRIBUTE_NAME));
-        command.setAccountName((String) model.get(ACCOUNT_NAME_MODEL_ATTRIBUTE));
-        model.addAttribute(COMMAND_ATTRIBUTE_NAME, command);
+        CommandBean commandBean = new CommandBean();
+        commandBean.setAccountId((Integer) model.get(ACCOUNT_ID_ATTRIBUTE_NAME));
+        commandBean.setAccountName((String) model.get(ACCOUNT_NAME_MODEL_ATTRIBUTE));
+        model.addAttribute(COMMAND_ATTRIBUTE_NAME, commandBean);
         model.addAttribute("commandNameEnum", "");
         return COMMAND_PAGE_NAME;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String processCommand(@Valid Command command, BindingResult result, ModelMap model) {
+    public String processCommand(@Valid CommandBean commandBean, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return COMMAND_PAGE_NAME;
         }
         model.addAttribute("errorCode", "");
-        CommandInt commandInt = delegatedInputParser.defaultParseInput(command.getCommandName());
+        CommandInt commandInt = delegatedInputParser.defaultParseInput(commandBean.getCommandName());
         try {
-            List<PrintBalanceService> resultList = commandInt.executeDb(command.getAccountId());
+            List<PrintBalance> resultList = commandInt.executeDb(commandBean.getAccountId());
             model.addAttribute("operationResult", resultList);
         } catch (AtmException errors) {
             model.addAttribute("errorCode", errors.getErrorCodes());
