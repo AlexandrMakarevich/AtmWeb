@@ -26,7 +26,7 @@ public class CommandController {
     private CommandValidator commandValidator;
     private DelegatedInputParser delegatedInputParser;
     private static final String COMMAND_PAGE_NAME = "command";
-    private static final String COMMAND_ATTRIBUTE_NAME = "command";
+    private static final String COMMAND_ATTRIBUTE_NAME = "commandBean";
     private Map<CommandName, String> commandPages;
 
     @InitBinder(COMMAND_ATTRIBUTE_NAME)

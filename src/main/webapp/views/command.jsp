@@ -15,7 +15,7 @@
 <body>
 <h1> Welcome ${commandBean.accountName}!</h1>
 <h2>Enter operation: </h2>
-<form:form method="POST" modelAttribute="command">
+<form:form method="POST" modelAttribute="commandBean">
     <form:hidden path="accountName"/>
     <form:hidden path="accountId"/>
     <form:input type="text" path="commandName"/>
